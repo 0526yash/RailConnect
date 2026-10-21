@@ -1,77 +1,121 @@
 # RailConnect — Mini Railway Booking Platform
 
-RailConnect is a railway booking backend built with **FastAPI** and **SQLModel**. It provides APIs for train search, passenger authentication, ticket booking, and cancellation.
+RailConnect is a railway ticket-booking backend built with **Python, FastAPI, and SQLModel**. It provides REST APIs for passenger authentication, train search, seat availability, ticket booking, and cancellation.
 
 ## Features
 
-- Passenger authentication using access tokens
-- Train search by source, destination, and journey date
-- Railway ticket booking with PNR generation
-- Seat availability tracking
-- Duplicate confirmed-seat booking prevention
-- Ticket cancellation and seat restoration
-- Passenger-specific booking access
-- Admin-protected operations
-- Interactive API documentation through Swagger UI
+- **Authentication:** Token-based passenger authentication.
+- **Train Search:** Search for trains by source, destination, and journey date.
+- **Ticket Booking:** Create bookings with a generated PNR.
+- **Seat Availability:** Track available seats for each train and journey date.
+- **Booking Validation:** Validate journey dates and seat numbers.
+- **Duplicate Booking Prevention:** Prevent duplicate confirmed bookings for the same seat, train, and journey date.
+- **Cancellation:** Cancel confirmed tickets and restore seat availability.
+- **Passenger Data Isolation:** Restrict passengers to their own booking records.
+- **Admin Authorization:** Protect administrator-only operations.
+- **Interactive API Documentation:** Explore endpoints using Swagger UI and ReDoc.
 
 ## Tech Stack
 
-- **Language:** Python
-- **Backend:** FastAPI
-- **ORM:** SQLModel / SQLAlchemy
-- **Database:** SQLite
-- **API documentation:** Swagger UI
+| Technology | Purpose |
+|---|---|
+| Python | Backend programming |
+| FastAPI | REST API framework |
+| SQLModel | Database models and ORM |
+| SQLAlchemy | Database interaction |
+| SQLite | Database |
+| Uvicorn | ASGI server |
+| Swagger UI / ReDoc | API documentation |
 
 ## Project Structure
 
 ```text
-Railconnect/
+RailConnect/
 ├── app/
+│   ├── __init__.py
 │   ├── main.py
 │   ├── config.py
 │   ├── database.py
 │   ├── models.py
 │   └── routers/
+│       ├── __init__.py
 │       ├── auth.py
 │       ├── admin.py
 │       ├── trains.py
 │       └── bookings.py
-├── .venv/
-├── railconnect.db
-└── README.md
+├── .gitignore
+├── requirements.txt
+├── README.md
+├── create_admin.py
+├── reset_admin_password.py
+├── add_seat_index.py
+└── fix_booking_constraint.py
 ```
 
-## Setup
+*The structure above reflects the current repository files; database files and the virtual environment should remain local.*
 
-### 1. Create and activate a virtual environment
+## Getting Started
+
+### Prerequisites
+
+- Python installed
+- Git installed
+- A terminal such as PowerShell
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/0526yash/RailConnect.git
+cd RailConnect
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+### 3. Activate the virtual environment
+
+**Windows PowerShell:**
 
 ```powershell
-python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 2. Install dependencies
-
-Install the packages listed in your project's `requirements.txt`, if available:
+If PowerShell blocks activation, run this in the current terminal session:
 
 ```powershell
-pip install -r requirements.txt
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+.\.venv\Scripts\Activate.ps1
 ```
 
-If no requirements file exists, install the dependencies used by the application.
+**Command Prompt:**
 
-### 3. Run the application
+```bat
+.venv\Scripts\activate.bat
+```
+
+### 4. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 5. Start the application
 
 From the project root, run:
 
-```powershell
+```bash
 python -m uvicorn app.main:app --reload
 ```
 
-### 4. Open the API documentation
+### 6. Open the API documentation
 
-- Swagger UI: http://127.0.0.1:8000/docs
-- ReDoc: http://127.0.0.1:8000/redoc
+Once the server is running:
+
+- **Swagger UI:** http://127.0.0.1:8000/docs
+- **ReDoc:** http://127.0.0.1:8000/redoc
 
 ## Main API Areas
 
@@ -82,27 +126,45 @@ python -m uvicorn app.main:app --reload
 | Bookings | Create, view, and cancel bookings |
 | Admin | Administrator-protected operations |
 
-Refer to `/docs` for the exact routes, parameters, and request schemas exposed by the running application.
+For the exact endpoints, request parameters, and schemas, start the application and visit Swagger UI at `/docs`.
 
-## Security and Validation
+## Validation and Security
 
-The implementation includes passenger-specific booking access, admin authorization, past-date validation, seat-number validation, duplicate confirmed-seat protection, and cancellation checks.
+The current implementation includes:
+
+- Past journey-date validation.
+- Seat-number range validation.
+- Duplicate confirmed-seat booking prevention.
+- Cancellation status checks.
+- Passenger-specific booking access.
+- Administrator authorization checks.
+
+These are application-level safeguards. Further security review and automated testing are recommended before production use.
 
 ## Testing
 
-Tests performed manually through the API include train search, invalid input handling, duplicate-seat rejection, cancellation, repeated cancellation, admin authorization, and cross-passenger cancellation protection.
+The following scenarios have been manually tested through the API:
 
-## Notes
+- Train search.
+- Invalid journey dates and seat numbers.
+- Duplicate confirmed-seat booking rejection.
+- Ticket cancellation and repeated cancellation.
+- Administrator authorization.
+- Protection against cancelling another passenger's booking.
+- Reuse of a seat after cancellation.
 
-- Keep database files and secrets out of public repositories.
-- Do not commit `.venv/`, access tokens, passwords, or private environment files.
-- Confirm the database initialization and dependency instructions before sharing the project.
-- Automated test coverage and production deployment hardening can be added later.
+Automated regression tests can be added using `pytest` and FastAPI's test client.
 
 ## Future Improvements
 
-- Automated API tests using pytest
-- Railway timetable and route management
-- Booking history and improved PNR lookup
-- Deployment with a production database
-- Frontend integration
+- Automated API tests with `pytest`.
+- Railway timetable and route management.
+- Booking history and PNR lookup.
+- A frontend for passengers and administrators.
+- Deployment with a production-ready database.
+- Production logging, monitoring, and security hardening.
+
+## Repository
+
+GitHub: https://github.com/0526yash/RailConnect
+
