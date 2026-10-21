@@ -99,7 +99,7 @@ def test_api_documentation_available(client):
     response = client.get("/openapi.json")
 
     assert response.status_code == 200
-    assert response.json()["info"]["title"] == "RailConnect API"
+    assert response.json()["info"]["title"] == "RailSync API"
 
 
 def test_train_search_success(client):

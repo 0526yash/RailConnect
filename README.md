@@ -1,6 +1,6 @@
-# RailConnect — Mini Railway Booking Platform
+# RailSync — Mini Railway Booking Platform
 
-RailConnect is a railway ticket-booking backend built with **Python, FastAPI, and SQLModel**. It provides REST APIs for passenger authentication, train search, seat availability, ticket booking, and cancellation.
+RailSync is a railway ticket-booking backend built with **Python, FastAPI, and SQLModel**. It provides REST APIs for passenger authentication, train search, seat availability, ticket booking, and cancellation.
 
 ## Features
 
@@ -30,7 +30,7 @@ RailConnect is a railway ticket-booking backend built with **Python, FastAPI, an
 ## Project Structure
 
 ```text
-RailConnect/
+RailSync/
 ├── app/
 │   ├── __init__.py
 │   ├── main.py
@@ -43,6 +43,9 @@ RailConnect/
 │       ├── admin.py
 │       ├── trains.py
 │       └── bookings.py
+├── tests/
+│   └── test_api.py
+├── screenshots/
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
@@ -52,7 +55,7 @@ RailConnect/
 └── fix_booking_constraint.py
 ```
 
-*The structure above reflects the current repository files; database files and the virtual environment should remain local.*
+*Database files and the virtual environment should remain local and should not be committed.*
 
 ## Getting Started
 
@@ -64,9 +67,11 @@ RailConnect/
 
 ### 1. Clone the repository
 
+After renaming the GitHub repository to `RailSync`, use:
+
 ```bash
-git clone https://github.com/0526yash/RailConnect.git
-cd RailConnect
+git clone https://github.com/0526yash/RailSync.git
+cd RailSync
 ```
 
 ### 2. Create a virtual environment
@@ -126,7 +131,7 @@ Once the server is running:
 | Bookings | Create, view, and cancel bookings |
 | Admin | Administrator-protected operations |
 
-For the exact endpoints, request parameters, and schemas, start the application and visit Swagger UI at `/docs`.
+For exact endpoints, request parameters, and schemas, start the application and visit Swagger UI at `/docs`.
 
 ## Validation and Security
 
@@ -143,24 +148,32 @@ These are application-level safeguards. Further security review and automated te
 
 ## Testing
 
-The following scenarios have been manually tested through the API:
+Automated API tests are available in `tests/test_api.py`.
 
-- Train search.
-- Invalid journey dates and seat numbers.
-- Duplicate confirmed-seat booking rejection.
-- Ticket cancellation and repeated cancellation.
-- Administrator authorization.
-- Protection against cancelling another passenger's booking.
-- Reuse of a seat after cancellation.
+Run them using:
 
-Automated regression tests can be added using `pytest` and FastAPI's test client.
+```bash
+python -m pytest tests/ -v
+```
+
+The current test suite contains eight tests covering:
+
+- Home and health endpoints.
+- API documentation availability.
+- Successful train search.
+- Station-code normalization.
+- Unknown station handling.
+- Same-station validation.
+- Past journey-date validation.
+
+Additional regression tests can be added as the project grows.
 
 ## Future Improvements
 
-- Automated API tests with `pytest`.
+- Expand automated test coverage for authentication and bookings.
 - Railway timetable and route management.
 - Booking history and PNR lookup.
-- A frontend for passengers and administrators.
+- A React frontend for passengers and administrators.
 - Deployment with a production-ready database.
 - Production logging, monitoring, and security hardening.
 
@@ -168,3 +181,8 @@ Automated regression tests can be added using `pytest` and FastAPI's test client
 
 GitHub: https://github.com/0526yash/RailConnect
 
+*Update the repository URL above after the GitHub rename is complete.*
+
+---
+
+**RailSync — Smarter Journeys. Seamless Connections.**

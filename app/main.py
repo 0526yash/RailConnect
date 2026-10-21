@@ -18,8 +18,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="RailConnect API",
-    description="Mini Railway Ticket Booking Backend",
+    title="RailSync API",
     version="1.0.0",
     lifespan=lifespan,
 )
