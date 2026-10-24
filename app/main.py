@@ -4,7 +4,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.routers.bookings import router as bookings_router
-from app.models import User, Station, Train, Booking, TrainAvailability
+from app.models import (
+    User,
+    Station,
+    Train,
+    Booking,
+    TrainAvailability,
+)
 from app.database import create_db_and_tables
 from app.routers.auth import router as auth_router
 from app.routers.admin import router as admin_router
